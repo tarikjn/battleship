@@ -1,3 +1,19 @@
 body {
   width: 960px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  font-family: sans-serif; }
+
+.player-board {
+  position: relative; }
+  .player-board .player-name {
+    position: absolute; }
+  .player-board table {
+    border-collapse: collapse;
+    margin: 10px 150px; }
+    .player-board table th {
+      font-size: .85em; }
+    .player-board table td {
+      width: 25px;
+      height: 25px;
+      border: 1px solid gray;
+      background: #B1E6F2; }

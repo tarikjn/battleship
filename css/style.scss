@@ -1,4 +1,34 @@
 body {
-  width: 960px;
-  margin: 0 auto;
+	width: 960px;
+	margin: 0 auto;
+
+	font-family: sans-serif;
+}
+
+.player-board {
+	
+	position: relative;
+	
+	.player-name {
+		position: absolute;
+		
+	}
+	
+	table {
+		
+		$box-size: 25px;
+		border-collapse: collapse;
+		
+		margin: 10px 150px;
+		
+		th {
+			font-size: .85em;
+		}
+		td {
+			
+			width: $box-size; height: $box-size;
+			border: 1px solid gray;
+			background: #B1E6F2;
+		}
+	}
 }
