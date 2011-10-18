@@ -7,22 +7,44 @@ body {
 
 .player-board {
 	
+	$box-size: 25px;
+	
 	position: relative;
 	
-	.player-name {
+	.info {
 		position: absolute;
 		
+		.player-name {
+			
+
+		}
+		
+		.fleet {
+			margin-top: 10px;
+			
+			canvas {
+				display: block;
+				width: $box-size; height: $box-size * 5;
+				margin-right: 5px;
+				float: left;
+			}
+			clear-after: both;
+		}
 	}
 	
 	table {
 		
-		$box-size: 25px;
+		
 		border-collapse: collapse;
 		
 		margin: 10px 150px;
 		
+		th, td {
+			width: $box-size; height: $box-size;
+		}
 		th {
 			font-size: .85em;
+			color: #aaa;
 		}
 		td {
 			

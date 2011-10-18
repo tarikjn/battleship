@@ -5,13 +5,26 @@ body {
 
 .player-board {
   position: relative; }
-  .player-board .player-name {
+  .player-board .info {
     position: absolute; }
+    .player-board .info .fleet {
+      margin-top: 10px;
+      clear-after: both; }
+      .player-board .info .fleet canvas {
+        display: block;
+        width: 25px;
+        height: 125px;
+        margin-right: 5px;
+        float: left; }
   .player-board table {
     border-collapse: collapse;
     margin: 10px 150px; }
+    .player-board table th, .player-board table td {
+      width: 25px;
+      height: 25px; }
     .player-board table th {
-      font-size: .85em; }
+      font-size: .85em;
+      color: #aaa; }
     .player-board table td {
       width: 25px;
       height: 25px;
