@@ -21,6 +21,7 @@ function Board(x, y) {
       // Are they all valid?
       for (s in ship_squares) {
         [x,y] = s;
+        if (!ships[x]) { ships[x] = []; }
         if (!check_valid_square(x,y) || ships[x][y] != undefined) {
           return INVALID_PLACEMENT;
         }
@@ -45,6 +46,7 @@ function Board(x, y) {
     if (!shots[x]) { shots[x] = []; }
     shots[x][y] = true;
 
+    if (!ships[x]) { ships[x] = []; }
     if (ships[x][y] != undefined) {
       shot_result = ships[x][y].got_hit(x,y);
     }
