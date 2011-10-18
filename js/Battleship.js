@@ -89,11 +89,10 @@ function Battleship(board_x, board_y, player_1_name, player_2_name) {
 
     this.got_hit = function(x,y) {
       this.hits++;
-      return this.is_sunk?() ? SUNK : HIT;
+      return this.is_sunk() ? SUNK : HIT;
     }
 
-    this.is_sunk = function() { this.hits >= this.length); }
+    this.is_sunk = function() { return this.hits >= this.length; }
   }
 }
 
-game = Battleship.new(10,10,'asdf','qwer');
