@@ -29,6 +29,10 @@ body {
 			width: $box-size; height: $box-size;
 			border: 1px solid gray;
 			background: #B1E6F2;
+			
+			&:hover {
+				background: red;
+			}
 		}
 	}
 }
