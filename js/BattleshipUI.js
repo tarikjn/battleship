@@ -1,6 +1,16 @@
+function displayMessage(msg) {
+	
+	var block = $("#message");
+	block.text(msg).css({ opacity: 1, fontSize: "12pt" });
+	block.animate({ opacity: 0, fontSize: "30pt" }, 1000 );
+	
+}
+
 function Board(id) {
 	
 	var that = this;
+	
+	that.fleet = Array(5);
 	
 	this.startPlacement = function() {
 		
@@ -29,24 +39,43 @@ function Board(id) {
 			
 			context.fillStyle = "gray";
 			context.fill();
+			
+			return el;
 		}
 		
 		for (i in fleetModel) {
-			console.log(that.board, "canvas.boat-" + i)
-			drawBoat(that.board.find("canvas.boat-" + i)[0], fleetModel[i])
+			that.fleet.push(
+				drawBoat(that.board.find("canvas.boat-" + i)[0], fleetModel[i])
+			);
 		}
 	}
 	
-	this.board = $("#board-" + id)
+	var setListener = function() {
+		
+		that.board.find("td").click(function() {
+			
+			console.log($(this).index() - 1, $(this).parents("tr").index());
+		});
+	}
+	
+	this.board = $("#board-" + id);
 	
 	drawFleet();
+	
+	setListener();
 }
 
 function Player(long_name, id) {
 	
+	var that = this;
+	
 	this.long_name = long_name;
 	this.name = undefined;
 	this.board = new Board(id);
+	
+	this.initPlace = function() {
+		displayMessage("Now, " + that.name + ", place your boats");
+	}
 }
 
 $(function() {
@@ -57,13 +86,24 @@ $(function() {
 		
 		var players = [new Player("first", 0), new Player("second", 1)]
 		
-		for (p in players) {
+		for (var p in players) {
 			
 			players[p].name = prompt("What's the " + players[p].long_name + " player's name?")
 			$("#board-" + p + " .player-name").text(players[p].name);
 		}
 		
-		console.log(players);
+		for (var p in players) {
+			
+			players[p].initPlace();
+			
+			for (b in players[p].board.fleet) {
+				$(players[p].board.fleet[b]).css( { background: "red" } );
+			}
+			
+			
+		}
+		
+		
 	})
 	
 })

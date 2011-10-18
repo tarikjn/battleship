@@ -3,6 +3,11 @@ body {
   margin: 0 auto;
   font-family: sans-serif; }
 
+#message {
+  font-size: 12pt;
+  height: 50px;
+  text-align: center; }
+
 .player-board {
   position: relative; }
   .player-board .info {
