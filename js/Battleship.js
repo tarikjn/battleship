@@ -1,19 +1,14 @@
 // Game class, contains game state
 function Battleship(board_x, board_y, player_1_name, player_2_name) {
 
-    this.boards = [
-      new Board(board_x, board_y),
-      new Board(board_x, board_y)
-    ];
-
-  }
-
   // Board class, keeps track of ship locations and hit/miss status
   function Board(x, y) {
 
-    this.INVALID_SHOT = 0;
-    this.ALREADY_SHOT = 1;
-    this.WIN          = 2;
+    this.WIN          = 1;
+
+    this.INVALID_SHOT      = 100;
+    this.ALREADY_SHOT      = 101;
+    this.INVALID_PLACEMENT = 102;
 
     max_x = x;
     max_y = y;
@@ -21,28 +16,37 @@ function Battleship(board_x, board_y, player_1_name, player_2_name) {
     ships = []; shots = [];
     ships_sunk = 0; ships_placed = 0;
 
-    this.place_ship = function(x, y, dir, length) {
-      ship = new Ship(length);
-      for (l=0; l<length; l++) {
-        ships[x]    ||= [];
-        ships[x][y] = ship;
-        switch(dir) {
-          case 'N': y--; break;
-          case 'S': y++; break;
-          case 'W': x--; break;
-          case 'E': x++; break;
+    this.place_ships = function(shiplist) {
+      for (ship_placement in ship_list) {
+
+        ship_squares = ship_layout(ship_placement);
+
+        // Are they all valid?
+        for (s in ship_squares) {
+          [x,y] = s;
+          if (!check_valid_square(x,y) || ships[x][y] != undefined) {
+            return INVALID_PLACEMENT;
+          }
         }
+
+        // Excellent, let's place them
+        new_ship = new Ship(length);
+        for (s in ship_squares) {
+          if (!ships[x]) { ships[x] = []; }
+          ships[x][y] = new_ship;
+        }
+        ships_placed++;
       }
-      ships_placed++;
     }
 
-    this.shot_fired = function(x,y) {
+    this.check_shot = function(x,y) {
 
-      if (!check_valid_shot(x,y)) { return INVALID_SHOT; }
-      if (shots[x][y])            { return ALREADY_SHOT; }
+      if (!check_valid_square(x,y)) { return INVALID_SHOT; }
+      if (shots[x][y])              { return ALREADY_SHOT; }
 
-      shots[x] ||= []
+      if (!shots[x]) { shots[x] = []; }
       shots[x][y] = true;
+
       if (ships[x][y] != undefined) {
         shot_result = ships[x][y].got_hit(x,y);
       }
@@ -52,8 +56,24 @@ function Battleship(board_x, board_y, player_1_name, player_2_name) {
       }
     }
 
-    check_valid_shot(x,y) {
+    // utility
+    function check_valid_square(x,y) {
       return x < max_x && x > 0 && y < max_y && y > 0;
+    }
+
+    function ship_layout(placement) {
+      [x, y, dir, length] = placement;
+      squares = []
+      for (l=0; l<length; l++) {
+        square[l] = [x,y];
+        switch(dir) {
+          case 'N': y--; break;
+          case 'S': y++; break;
+          case 'W': x--; break;
+          case 'E': x++; break;
+        }
+      }
+      return squares;
     }
   }
 
